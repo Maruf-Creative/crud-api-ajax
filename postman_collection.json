@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "crud-api-ajax-ptm12",
+		"name": "CRUD Mahasiswa - Laravel RESTful API",
+		"description": "Koleksi endpoint API untuk pengujian CRUD data mahasiswa menggunakan Laravel 12.\n\nBase URL: http://localhost:8000/api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		},
+		{
+			"key": "student_id",
+			"value": "1",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "1. Read All Students (GET)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/students",
+					"host": ["{{base_url}}"],
+					"path": ["students"]
+				},
+				"description": "Mengambil seluruh data mahasiswa dari database."
+			},
+			"response": []
+		},
+		{
+			"name": "2. Read Single Student (GET)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/students/{{student_id}}",
+					"host": ["{{base_url}}"],
+					"path": ["students", "{{student_id}}"]
+				},
+				"description": "Mengambil data satu mahasiswa berdasarkan ID."
+			},
+			"response": []
+		},
+		{
+			"name": "3. Create Student (POST)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nim\": \"2024006\",\n    \"nama\": \"Andi Wijaya\",\n    \"jurusan\": \"Teknik Informatika\",\n    \"email\": \"andi.wijaya@mail.com\",\n    \"no_hp\": \"089876543210\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/students",
+					"host": ["{{base_url}}"],
+					"path": ["students"]
+				},
+				"description": "Menambahkan data mahasiswa baru ke database."
+			},
+			"response": []
+		},
+		{
+			"name": "4. Create Student - Validasi Gagal (POST)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nim\": \"\",\n    \"nama\": \"\",\n    \"jurusan\": \"\",\n    \"email\": \"bukan-email\",\n    \"no_hp\": \"\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/students",
+					"host": ["{{base_url}}"],
+					"path": ["students"]
+				},
+				"description": "Menguji validasi server-side. Harus mengembalikan HTTP 422 dengan detail error per field."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Update Student (PUT)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nim\": \"2024001\",\n    \"nama\": \"Ahmad Fauzi (Updated)\",\n    \"jurusan\": \"Sistem Informasi\",\n    \"email\": \"ahmad.fauzi.updated@mail.com\",\n    \"no_hp\": \"081111111111\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/students/{{student_id}}",
+					"host": ["{{base_url}}"],
+					"path": ["students", "{{student_id}}"]
+				},
+				"description": "Mengubah data mahasiswa berdasarkan ID menggunakan method PUT."
+			},
+			"response": []
+		},
+		{
+			"name": "6. Delete Student (DELETE)",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/students/{{student_id}}",
+					"host": ["{{base_url}}"],
+					"path": ["students", "{{student_id}}"]
+				},
+				"description": "Menghapus data mahasiswa berdasarkan ID."
+			},
+			"response": []
+		},
+		{
+			"name": "7. Read Not Found (GET 404)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/students/999",
+					"host": ["{{base_url}}"],
+					"path": ["students", "999"]
+				},
+				"description": "Menguji response 404 ketika data mahasiswa tidak ditemukan."
+			},
+			"response": []
+		}
+	]
+}
